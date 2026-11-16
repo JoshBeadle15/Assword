@@ -315,6 +315,10 @@ form input:focus {
   z-index: 10;
 }
 
+.modal-backdrop[hidden] {
+  display: none;
+}
+
 .modal-card {
   background: var(--bg-card);
   border: 1px solid var(--line);
