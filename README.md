@@ -1,6 +1,6 @@
 # Music Villa Vault
 
-A small internal password vault for Music Villa. One table: **Site**, **Password**, **Last Updated** (date + who made the change). Anyone editing a password has to type their name, which gets stamped into that last column.
+A small internal password vault for Music Villa. One table: **Site/Username**, **Password**, **Last Updated** (date + who made the change). Anyone editing a password has to type their name, which gets stamped into that last column.
 
 Built deliberately light for Railway's free tier: plain Express + SQLite (no separate database service), one small vanilla-JS bundle, no frontend framework, gzip compression on, and the only external request is a Google Fonts stylesheet (served from Google's CDN, not Railway's, so it doesn't count against Railway egress).
 
