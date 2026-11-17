@@ -91,11 +91,9 @@ app.delete('/api/entries/:id', requireAuth, (req, res) => {
 });
 
 // --- Static assets ---
-app.use(
-  express.static(path.join(__dirname, 'public'), {
-    maxAge: '1d',
-  })
-);
+// No maxAge: browsers revalidate via ETag on every load (cheap 304s,
+// no body) instead of caching for a day and missing future fixes.
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, () => {
   console.log(`Music Villa Vault listening on port ${PORT}`);
