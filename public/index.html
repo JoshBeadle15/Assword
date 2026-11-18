@@ -30,14 +30,15 @@
       <table id="entries-table">
         <thead>
           <tr>
-            <th>Site/Username</th>
+            <th>Site</th>
+            <th>Username</th>
             <th>Password</th>
             <th>Last Updated</th>
             <th class="col-actions"></th>
           </tr>
         </thead>
         <tbody id="entries-body">
-          <tr class="empty-row"><td colspan="4">Loading&hellip;</td></tr>
+          <tr class="empty-row"><td colspan="5">Loading&hellip;</td></tr>
         </tbody>
       </table>
     </div>
@@ -49,8 +50,11 @@
       <h2 id="modal-title">Add Site</h2>
       <input type="hidden" id="entry-id" />
 
-      <label for="entry-site">Site/Username</label>
+      <label for="entry-site">Site</label>
       <input id="entry-site" required autocomplete="off" />
+
+      <label for="entry-username">Username</label>
+      <input id="entry-username" required autocomplete="off" />
 
       <label for="entry-password">Password</label>
       <input id="entry-password" required autocomplete="off" />

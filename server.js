@@ -52,20 +52,20 @@ app.get('/api/entries', requireAuth, (req, res) => {
 });
 
 app.post('/api/entries', requireAuth, (req, res) => {
-  const { site, password, name } = req.body || {};
-  if (!site || !password || !name) {
-    return res.status(400).json({ error: 'site, password, and name are required' });
+  const { site, username, password, name } = req.body || {};
+  if (!site || !username || !password || !name) {
+    return res.status(400).json({ error: 'site, username, password, and name are required' });
   }
   const now = new Date().toISOString();
   const result = db
-    .prepare('INSERT INTO entries (site, password, updated_at, updated_by) VALUES (?, ?, ?, ?)')
-    .run(String(site).trim(), String(password), now, String(name).trim());
+    .prepare('INSERT INTO entries (site, username, password, updated_at, updated_by) VALUES (?, ?, ?, ?, ?)')
+    .run(String(site).trim(), String(username).trim(), String(password), now, String(name).trim());
   const row = db.prepare('SELECT * FROM entries WHERE id = ?').get(result.lastInsertRowid);
   res.status(201).json(row);
 });
 
 app.patch('/api/entries/:id', requireAuth, (req, res) => {
-  const { password, name, site } = req.body || {};
+  const { password, name, site, username } = req.body || {};
   if (!password || !name) {
     return res.status(400).json({ error: 'password and name are required' });
   }
@@ -74,8 +74,10 @@ app.patch('/api/entries/:id', requireAuth, (req, res) => {
 
   const now = new Date().toISOString();
   const newSite = site ? String(site).trim() : existing.site;
-  db.prepare('UPDATE entries SET site = ?, password = ?, updated_at = ?, updated_by = ? WHERE id = ?').run(
+  const newUsername = username ? String(username).trim() : existing.username;
+  db.prepare('UPDATE entries SET site = ?, username = ?, password = ?, updated_at = ?, updated_by = ? WHERE id = ?').run(
     newSite,
+    newUsername,
     String(password),
     now,
     String(name).trim(),

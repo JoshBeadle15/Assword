@@ -5,6 +5,7 @@ const modalError = document.getElementById('modal-error');
 const entryForm = document.getElementById('entry-form');
 const entryIdField = document.getElementById('entry-id');
 const entrySiteField = document.getElementById('entry-site');
+const entryUsernameField = document.getElementById('entry-username');
 const entryPasswordField = document.getElementById('entry-password');
 const entryNameField = document.getElementById('entry-name');
 const searchInput = document.getElementById('search-input');
@@ -38,7 +39,10 @@ async function loadEntries() {
 function applyFilter() {
   const query = searchInput.value.trim().toLowerCase();
   const filtered = query
-    ? allEntries.filter((entry) => entry.site.toLowerCase().includes(query))
+    ? allEntries.filter(
+        (entry) =>
+          entry.site.toLowerCase().includes(query) || entry.username.toLowerCase().includes(query)
+      )
     : allEntries;
   renderEntries(filtered, query);
 }
@@ -48,7 +52,7 @@ function renderEntries(entries, query = '') {
     const message = query
       ? `No sites match "${escapeHtml(searchInput.value.trim())}".`
       : 'No sites yet. Click "+ Add Site" to start the vault.';
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="4">${message}</td></tr>`;
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="5">${message}</td></tr>`;
     return;
   }
 
@@ -58,6 +62,7 @@ function renderEntries(entries, query = '') {
       return `
         <tr data-id="${entry.id}">
           <td class="site-cell">${escapeHtml(entry.site)}</td>
+          <td class="username-cell">${escapeHtml(entry.username)}</td>
           <td>
             <div class="password-row">
               <span class="password-value" id="${maskedId}" data-password="${escapeHtml(entry.password)}" data-revealed="false">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
@@ -108,8 +113,9 @@ tbody.addEventListener('click', async (e) => {
   if (editBtn) {
     const row = editBtn.closest('tr');
     const site = row.querySelector('.site-cell').textContent;
+    const username = row.querySelector('.username-cell').textContent;
     const password = document.getElementById(`pw-${editBtn.dataset.id}`).dataset.password;
-    openModal({ id: editBtn.dataset.id, site, password });
+    openModal({ id: editBtn.dataset.id, site, username, password });
   }
 
   if (deleteBtn) {
@@ -122,15 +128,17 @@ tbody.addEventListener('click', async (e) => {
   }
 });
 
-function openModal({ id = '', site = '', password = '' } = {}) {
+function openModal({ id = '', site = '', username = '', password = '' } = {}) {
   modalTitle.textContent = id ? 'Update Password' : 'Add Site';
   entryIdField.value = id;
   entrySiteField.value = site;
+  entryUsernameField.value = username;
   entryPasswordField.value = id ? '' : password;
   entryNameField.value = '';
   modalError.hidden = true;
   modal.hidden = false;
   entrySiteField.disabled = Boolean(id);
+  entryUsernameField.disabled = Boolean(id);
   (id ? entryPasswordField : entrySiteField).focus();
 }
 
@@ -152,6 +160,7 @@ entryForm.addEventListener('submit', async (e) => {
   const id = entryIdField.value;
   const payload = {
     site: entrySiteField.value.trim(),
+    username: entryUsernameField.value.trim(),
     password: entryPasswordField.value,
     name: entryNameField.value.trim(),
   };
