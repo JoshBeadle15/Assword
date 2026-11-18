@@ -149,7 +149,8 @@ body {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 table {
@@ -220,6 +221,7 @@ tbody tr:hover {
 }
 
 .col-actions {
+  width: 1%;
   text-align: right;
   white-space: nowrap;
 }
