@@ -222,8 +222,16 @@ tbody tr:hover {
 
 .col-actions {
   width: 1%;
+  min-width: 112px;
   text-align: right;
   white-space: nowrap;
+}
+
+.actions-row {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .icon-btn {
@@ -406,7 +414,13 @@ form input:focus {
   }
 
   .col-actions {
+    width: 100%;
+    min-width: 0;
     text-align: left;
     margin-top: 0.5rem;
+  }
+
+  .actions-row {
+    justify-content: flex-start;
   }
 }

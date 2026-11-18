@@ -77,8 +77,10 @@ function renderEntries(entries, query = '') {
             </div>
           </td>
           <td class="col-actions">
-            <button class="icon-btn edit-btn" data-id="${entry.id}" title="Edit">&#9998;</button>
-            <button class="icon-btn delete-btn" data-id="${entry.id}" title="Delete">&#128465;</button>
+            <div class="actions-row">
+              <button class="icon-btn edit-btn" data-id="${entry.id}" title="Edit">&#9998;</button>
+              <button class="icon-btn delete-btn" data-id="${entry.id}" title="Delete">&#128465;</button>
+            </div>
           </td>
         </tr>
       `;
