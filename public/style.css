@@ -163,7 +163,7 @@ tbody tr:hover {
   font-weight: 600;
 }
 
-.password-cell {
+.password-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -171,7 +171,7 @@ tbody tr:hover {
   letter-spacing: 0.04em;
 }
 
-.updated-cell {
+.updated-stack {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;

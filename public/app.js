@@ -44,14 +44,18 @@ function renderEntries(entries) {
       return `
         <tr data-id="${entry.id}">
           <td class="site-cell">${escapeHtml(entry.site)}</td>
-          <td class="password-cell">
-            <span class="password-value" id="${maskedId}" data-password="${escapeHtml(entry.password)}" data-revealed="false">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
-            <button class="icon-btn reveal-btn" data-id="${entry.id}" title="Show / hide password">&#128065;</button>
-            <button class="icon-btn copy-btn" data-id="${entry.id}" title="Copy password">&#128203;</button>
+          <td>
+            <div class="password-row">
+              <span class="password-value" id="${maskedId}" data-password="${escapeHtml(entry.password)}" data-revealed="false">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
+              <button class="icon-btn reveal-btn" data-id="${entry.id}" title="Show / hide password">&#128065;</button>
+              <button class="icon-btn copy-btn" data-id="${entry.id}" title="Copy password">&#128203;</button>
+            </div>
           </td>
-          <td class="updated-cell">
-            <span class="updated-date">${fmtDate(entry.updated_at)}</span>
-            <span class="updated-by">by ${escapeHtml(entry.updated_by)}</span>
+          <td>
+            <div class="updated-stack">
+              <span class="updated-date">${fmtDate(entry.updated_at)}</span>
+              <span class="updated-by">by ${escapeHtml(entry.updated_by)}</span>
+            </div>
           </td>
           <td class="col-actions">
             <button class="icon-btn edit-btn" data-id="${entry.id}" title="Edit">&#9998;</button>
