@@ -70,7 +70,7 @@ function renderEntries(entries, query = '') {
               <button class="icon-btn copy-btn" data-id="${entry.id}" title="Copy password">&#128203;</button>
             </div>
           </td>
-          <td>
+          <td class="col-updated">
             <div class="updated-stack">
               <span class="updated-date">${fmtDate(entry.updated_at)}</span>
               <span class="updated-by">by ${escapeHtml(entry.updated_by)}</span>

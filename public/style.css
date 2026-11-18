@@ -114,7 +114,7 @@ body {
 /* --- Layout --- */
 
 .container {
-  max-width: 980px;
+  max-width: 1160px;
   margin: 0 auto;
   padding: 2rem 1.5rem 4rem;
 }
@@ -211,6 +211,7 @@ tbody tr:hover {
 
 .updated-date {
   color: var(--ink);
+  white-space: nowrap;
 }
 
 .updated-by {
@@ -218,6 +219,12 @@ tbody tr:hover {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.col-updated {
+  width: 220px;
+  min-width: 220px;
 }
 
 .col-actions {
@@ -411,6 +418,11 @@ form input:focus {
   tbody td {
     border-bottom: none;
     padding: 0.3rem 0;
+  }
+
+  .col-updated {
+    width: 100%;
+    min-width: 0;
   }
 
   .col-actions {
