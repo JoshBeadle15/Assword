@@ -7,6 +7,9 @@ const entryIdField = document.getElementById('entry-id');
 const entrySiteField = document.getElementById('entry-site');
 const entryPasswordField = document.getElementById('entry-password');
 const entryNameField = document.getElementById('entry-name');
+const searchInput = document.getElementById('search-input');
+
+let allEntries = [];
 
 function fmtDate(iso) {
   const d = new Date(iso);
@@ -28,13 +31,24 @@ async function loadEntries() {
     window.location.href = '/login.html';
     return;
   }
-  const entries = await res.json();
-  renderEntries(entries);
+  allEntries = await res.json();
+  applyFilter();
 }
 
-function renderEntries(entries) {
+function applyFilter() {
+  const query = searchInput.value.trim().toLowerCase();
+  const filtered = query
+    ? allEntries.filter((entry) => entry.site.toLowerCase().includes(query))
+    : allEntries;
+  renderEntries(filtered, query);
+}
+
+function renderEntries(entries, query = '') {
   if (entries.length === 0) {
-    tbody.innerHTML = `<tr class="empty-row"><td colspan="4">No sites yet. Click "+ Add Site" to start the vault.</td></tr>`;
+    const message = query
+      ? `No sites match "${escapeHtml(searchInput.value.trim())}".`
+      : 'No sites yet. Click "+ Add Site" to start the vault.';
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="4">${message}</td></tr>`;
     return;
   }
 
@@ -168,5 +182,7 @@ document.getElementById('logout-btn').addEventListener('click', async () => {
   await fetch('/api/logout', { method: 'POST' });
   window.location.href = '/login.html';
 });
+
+searchInput.addEventListener('input', applyFilter);
 
 loadEntries();

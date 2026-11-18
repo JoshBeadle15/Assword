@@ -119,6 +119,31 @@ body {
   padding: 2rem 1.5rem 4rem;
 }
 
+.toolbar {
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 340px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.search-input::placeholder {
+  color: var(--ink-dim);
+}
+
 .table-card {
   background: var(--bg-card);
   border: 1px solid var(--line);
